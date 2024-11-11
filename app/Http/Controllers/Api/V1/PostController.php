@@ -15,7 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return PostResource::collection(Post::all());
+        return PostResource::collection(Post::with('category')->paginate(2));
     }       
 
     /**
@@ -23,7 +23,7 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        return Post::create($request->all());
+        return new PostResource(Post::create($request->all()));
     }
 
     /**
@@ -31,12 +31,14 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        if($post->id == 3){
-            return response()->json([
-                'message' => 'forbidden'
-            ], 403);
-        }
-        return $post;
+        // if($post->id == 3){
+        //     return response()->json([
+        //         'message' => 'forbidden'
+        //     ], 403);
+        // }
+        // return $post;
+
+        return new PostResource($post);
     }
 
     /**
@@ -45,7 +47,7 @@ class PostController extends Controller
     public function update(UpdatePostRequest $request, Post $post)
     {
         $post->update($request->all());
-        return $post;
+        return new PostResource($post);
     }
 
     /**
