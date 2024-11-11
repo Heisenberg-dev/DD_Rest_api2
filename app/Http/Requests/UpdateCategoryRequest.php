@@ -23,8 +23,8 @@ class UpdateCategoryRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'max:255'],
-            'content' => 'required',
-            'category_id' => ['required', 'exists:categories,id']
+            // 'content' => 'required',
+            // 'category_id' => ['required', 'exists:categories,id']
         ];
     }
 }
