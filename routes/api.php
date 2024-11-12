@@ -9,13 +9,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
+ 
 
 
 
-
-Route::prefix('V1')->group(function(){
+Route::prefix('V1')->middleware(['throttle:boomchik'])->group(function(){
     Route::apiResource('categories', CategoryController::class);
-
     Route::apiResource('posts', PostController::class);
 });
 
